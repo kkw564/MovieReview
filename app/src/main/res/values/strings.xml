@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MovieReview</string>
+    <string name="cinema_title">씨네마 천국</string>
+    <string name="limit_15">15</string>
+    <string name="movie_title">군도</string>
+    <string name="open_day">2014.07.23 개봉</string>
+    <string name="genre_and_duration">액션 / 137 분</string>
+    <string name="up_count">15</string>
+    <string name="down_count">1</string>
+</resources>
