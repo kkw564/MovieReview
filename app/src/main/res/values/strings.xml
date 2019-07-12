@@ -7,4 +7,34 @@
     <string name="genre_and_duration">액션 / 137 분</string>
     <string name="up_count">15</string>
     <string name="down_count">1</string>
+    <string name="reservation_title">예매율</string>
+    <string name="reservation_rank">5위</string>
+    <string name="reservation_percentage">1.8%</string>
+    <string name="rating_score_title">평점</string>
+    <string name="rating_score">8.2</string>
+    <string name="accumulate_people_title">누적 관객수</string>
+    <string name="accumulate_people_count">839,399명</string>
+    <string name="movie_summary">줄거리</string>
+    <string name="movie_story">군도, 백성을 구하라! \n
+    양반과 탐관오리들의 착취가 극에 달했던 조선 철종 13년. \n
+    힘 없는 백성의 편이 되어 세상을 바로잡고자 하는 의적떼인 군도(群盜), 지리산 추설이 있었다. \n
+    \n
+    쌍칼 도치 vs 백성의 적 조윤\n
+    잦은 자연재해, 기근과 관의 횡포까지 겹쳐 백성들의 삶이 날로 피폐해 져 가는 사이,\n
+    나주 대부호의 서자로 조선 최고의 무관 출신인 조윤은 극악한 수법으로 양민들을 수탈,\n
+    삼남지방 최고의 대부호로 성장한다. 한편 소, 돼지를 잡아 근근이 살아가던 천한 백정 돌무치는
+    죽어도 잊지 못할 끔찍한 일을 당한 뒤 군도에 합류. 지리산 추설의 신 거성(新 巨星) 도치로 거듭난다.\n
+    \n
+    뭉치면 백성, 흩어지면 도적!\n
+    망할 세상을 뒤집기 위해, 백성이 주인인 새 세상을 향해 도치를 필두로 한 군도는 백성의 적,
+    조윤과 한 판 승부를 시작하는데...\n</string>
+    <string name="director_and_starring">감독/출연</string>
+    <string name="director">감독</string>
+    <string name="director_name">윤종빈</string>
+    <string name="starring">출연</string>
+    <string name="starring_name">하정우(도치), 강동원(조윤)</string>
+    <string name="comment_title">한줄평</string>
+    <string name="comment_write">작성하기</string>
+    <string name="comment_see_all">모두 보기</string>
+    <string name="movie_reservation">예매하기</string>
 </resources>

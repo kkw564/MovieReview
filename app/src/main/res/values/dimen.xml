@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="rating_default_value" type="dimen" format="float">4.1</item>
+</resources>
