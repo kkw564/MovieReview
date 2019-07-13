@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     TextView upCount;
     TextView downCount;
+    int thumbState; // 0 : none 1 : up 2 : down
 
     ImageButton thumbUp;
     ImageButton thumbDown;
@@ -29,6 +30,46 @@ public class MainActivity extends AppCompatActivity {
         thumbUp = (ImageButton)findViewById(R.id.btn_thumb_up);
         thumbDown = (ImageButton)findViewById(R.id.btn_thumb_down);
 
+        thumbState = 0;
+
+        thumbUp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(thumbState == 0 || thumbState == 2){
+                    thumbUp.setImageResource(R.drawable.ic_thumb_up_selected);
+                    upCount.setText(Integer.parseInt(upCount.getText().toString()) + 1 + "");
+                    if(thumbState == 2){
+                        thumbDown.setImageResource(R.drawable.ic_thumb_down);
+                        downCount.setText(Integer.parseInt(downCount.getText().toString()) - 1 + "");
+                    }
+                    thumbState = 1;
+                } else if(thumbState == 1){
+                    thumbUp.setImageResource(R.drawable.ic_thumb_up);
+                    upCount.setText(Integer.parseInt(upCount.getText().toString()) - 1 + "");
+                    thumbState = 0;
+                }
+            }
+        });
+
+        thumbDown.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(thumbState == 0 || thumbState == 1){
+                    thumbDown.setImageResource(R.drawable.ic_thumb_down_selected);
+                    downCount.setText(Integer.parseInt(downCount.getText().toString()) + 1 + "");
+                    if(thumbState == 1){
+                        thumbUp.setImageResource(R.drawable.ic_thumb_up);
+                        upCount.setText(Integer.parseInt(upCount.getText().toString()) - 1 + "");
+                    }
+                    thumbState = 2;
+                } else if(thumbState == 2){
+                    thumbDown.setImageResource(R.drawable.ic_thumb_down);
+                    downCount.setText(Integer.parseInt(downCount.getText().toString()) - 1 + "");
+                    thumbState = 0;
+                }
+            }
+        });
+        /*
         thumbUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 downCount.setText(Integer.parseInt(downCount.getText().toString()) + 1 + "");
             }
         });
+        */
 
         ratingBar = (RatingBar)findViewById(R.id.rating_bar);
         ratingScore = (TextView)findViewById(R.id.rating_score_text_view);
