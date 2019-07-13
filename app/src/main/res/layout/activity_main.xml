@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#ffffff">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -276,7 +277,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:background="#EEEEEE"></LinearLayout>
+                android:background="#EEEEEE"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -304,7 +305,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:background="#EEEEEE"></LinearLayout>
+                android:background="#EEEEEE"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -370,7 +371,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:background="#EEEEEE"></LinearLayout>
+                android:background="#EEEEEE"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -405,48 +406,49 @@
 
                             android:background="@drawable/ic_review_selected" />
 
-                        <TextView
+                        <Button
+                            android:id="@+id/comment_write_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:text="@string/comment_write"
                             android:textColor="#E44418"
                             android:textStyle="bold"
-                            android:textSize="25dp" />
+                            android:textSize="25dp"
+                            android:background="#ffffff"
+                            />
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="300dp"
                     android:orientation="vertical">
-                    <LinearLayout
+                    <ListView
+                        android:id="@+id/comment_list_view"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:orientation="vertical">
-                    </LinearLayout>
-                    
-                    <LinearLayout
+                        android:layout_height="match_parent"></ListView>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/border_all_purple">
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:background="@drawable/border_all_purple">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal|center_vertical"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:text="@string/comment_see_all"
-                            android:textSize="20dp"
-                            android:textColor="#4B0082"/>
-                    </LinearLayout>
+                        android:gravity="center_horizontal|center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/comment_see_all"
+                        android:textSize="20dp"
+                        android:textColor="#4B0082"/>
                 </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:background="#EEEEEE"></LinearLayout>
+                android:background="#EEEEEE"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -480,7 +482,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="15dp"
-                android:background="#EEEEEE"></LinearLayout>
+                android:background="#EEEEEE"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

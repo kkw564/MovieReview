@@ -37,4 +37,11 @@
     <string name="comment_write">작성하기</string>
     <string name="comment_see_all">모두 보기</string>
     <string name="movie_reservation">예매하기</string>
+
+    <string name="comment_user_id_tmp">kkw5**</string>
+    <string name="comment_time_tmp">10분전</string>
+    <string name="comment_tmp">적당히 재미있다. 오랜만에 잘 본 영화같습니다.</string>
+    <string name="comment_recommendation">추천</string>
+    <string name="comment_recommendation_count">1</string>
+    <string name="comment_police">신고하기</string>
 </resources>
