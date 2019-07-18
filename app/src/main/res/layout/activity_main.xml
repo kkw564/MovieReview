@@ -435,21 +435,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"></ListView>
                 </LinearLayout>
-                <LinearLayout
+                <Button
+                    style="?android:attr/borderlessButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:background="@drawable/border_all_purple">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@string/comment_see_all"
-                        android:textSize="20dp"
-                        android:textColor="#4B0082"/>
-                </LinearLayout>
+                    android:background="@drawable/border_all_purple"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/comment_see_all"
+                    android:textSize="20dp"
+                    android:textColor="#4B0082"/>
             </LinearLayout>
 
             <LinearLayout
