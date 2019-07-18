@@ -41,17 +41,17 @@ public class CommentItemView extends LinearLayout {
     public void setUserId(String userId){
         this.userId.setText(userId);
     }
-    public void setTime(String time){
-        this.time.setText(time);
+    public void setTime(Long time){
+        this.time.setText(Long.toString(time));
     }
-    public void setRatingBar(RatingBar ratingBar){
-        this.ratingBar.setRating(ratingBar.getRating());
+    public void setRatingBar(Float ratingScore){
+        this.ratingBar.setRating(ratingScore);
     }
     public void setComment(String comment){
         this.comment.setText(comment);
     }
-    public void setRecommendationCount(String recommendationCount){
-        this.recommendationCount.setText(recommendationCount);
+    public void setRecommendationCount(int recommendationCount){
+        this.recommendationCount.setText(Integer.toString(recommendationCount));
     }
     public void setProfileImage(ImageView profileImage){
         this.profileImage = profileImage;

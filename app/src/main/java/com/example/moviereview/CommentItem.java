@@ -5,17 +5,18 @@ import android.widget.RatingBar;
 
 public class CommentItem {
     String id;
-    String time;
+    Long time;
     String comment;
-    String recommendationCount;
-    RatingBar ratingBar;
+    int recommendationCount;
+    Float ratingScore;
     ImageView profileImage;
 
-    public CommentItem(String id, String time, String recommendCount, RatingBar ratingBar, ImageView profileImage) {
+    public CommentItem(String id, Long time, String comment, int recommendCount, Float ratingScore, ImageView profileImage) {
         this.id = id;
         this.time = time;
+        this.comment = comment;
         this.recommendationCount = recommendCount;
-        this.ratingBar = ratingBar;
+        this.ratingScore = ratingScore;
         this.profileImage = profileImage;
     }
 
@@ -27,11 +28,11 @@ public class CommentItem {
         this.id = id;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
@@ -43,20 +44,20 @@ public class CommentItem {
         this.comment = comment;
     }
 
-    public String getRecommendationCount() {
+    public int getRecommendationCount() {
         return recommendationCount;
     }
 
-    public void setRecommendationCount(String recommendationCount) {
+    public void setRecommendationCount(int recommendationCount) {
         this.recommendationCount = recommendationCount;
     }
 
-    public RatingBar getRatingBar() {
-        return ratingBar;
+    public Float getRatingScore() {
+        return ratingScore;
     }
 
-    public void setRatingBar(RatingBar ratingBar) {
-        this.ratingBar = ratingBar;
+    public void setRatingScore(Float ratingScore) {
+        this.ratingScore = ratingScore;
     }
 
     public ImageView getProfileImage() {

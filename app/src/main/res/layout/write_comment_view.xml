@@ -34,7 +34,7 @@
         android:background="#EEEEEE"/>
 
     <RatingBar
-        android:id="@+id/comment_rating_bar"
+        android:id="@+id/rb_write_comment_rating_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:isIndicator="false"
@@ -46,32 +46,31 @@
         android:layout_marginBottom="5dp"/>
 
     <TextView
+        android:id="@+id/tv_write_comment_rating_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/please_write_comment"
         android:gravity="center"
         android:textSize="20dp"/>
 
-    <ScrollView
+    <!-- Comment editor wrapper -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <!-- Comment editor wrapper -->
-        <LinearLayout
+        <EditText
+            android:id="@+id/et_write_comment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:orientation="vertical"
-                android:gravity="top"
-                android:hint="@string/please_write_under_100_words"
-                android:background="@drawable/border_radius"
-                android:layout_margin="20dp"
-                android:padding="15dp"
-                android:textSize="20dp"
-                android:maxLength="100"/>
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:gravity="top"
+            android:scrollbars="vertical"
+            android:hint="@string/please_write_under_100_words"
+            android:background="@drawable/border_radius"
+            android:layout_margin="20dp"
+            android:padding="15dp"
+            android:textSize="20dp"
+            android:maxLength="100"/>
+    </LinearLayout>
 
     <!-- Button wrapper -->
     <LinearLayout
@@ -81,6 +80,7 @@
         android:gravity="right">
         <Button
             style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/btn_write_comment_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/border_all_purple"
@@ -89,6 +89,7 @@
 
         <Button
             style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/btn_write_comment_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/border_all_purple"

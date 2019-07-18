@@ -1,7 +1,9 @@
 package com.example.moviereview;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Point;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,14 +14,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+    final static int WRITE_COMMENT_REQUEST = 100;
+    final static String[] idList = {"kkw***","cro***","abs***","hellowo***","na***"};
+    Random rd = new Random();
+
     TextView upCount;
     TextView downCount;
     int thumbState; // 0 : none 1 : up 2 : down
@@ -33,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     ListView commentListView;
 
     Button commentWrite;
+    CommentAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         commentListView = (ListView) findViewById(R.id.lv_comment_view);
 
-        CommentAdapter adapter = new CommentAdapter();
+        adapter = new CommentAdapter();
         commentListView.setAdapter(adapter);
         //adapter.addItem(new Sing);
         thumbState = 0;
@@ -126,46 +135,46 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        commentWrite = (Button)findViewById(R.id.bt_write_comment);
+        commentWrite = (Button)findViewById(R.id.btn_write_comment);
 
         commentWrite.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                showMessage();
+                Intent intent = new Intent(getApplicationContext(), WriteCommentView.class);
+                startActivityForResult(intent, WRITE_COMMENT_REQUEST);
             }
         });
     }
-    public void showMessage(){
-        AlertDialog.Builder builder= new AlertDialog.Builder(this);
 
-        builder.setTitle("안내");
-        builder.setMessage("종료하시겠습니까?");
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String message = "확인 감사합니다";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        if(requestCode == WRITE_COMMENT_REQUEST){
+            if(resultCode == RESULT_OK){
+                // TODO : set real time
+
+                String id = idList[rd.nextInt(5)];
+                Long time = System.currentTimeMillis();
+                String comment = data.getStringExtra("comment");
+                Float ratingScore = data.getFloatExtra("rating_score",0) * 2;
+                int recommendationCount = 0;
+                ImageView profileImage = new ImageView(this);
+                profileImage.setImageResource(R.drawable.user1);
+                adapter.addItem(new CommentItem(id, time, comment, recommendationCount, ratingScore, profileImage));
+                Toast.makeText(getApplicationContext(), "comment : " + comment + " rating : " + ratingScore,Toast.LENGTH_LONG).show();
+                /*
+                String id = data.getStringExtra("id");
+                String time = data.getStringExtra("time");
+                byte[] imageViewArr = data.getByteArrayExtra("profileImage");
+                    Bitmap image = BitmapFactory.decodeByteArray(imageViewArr, 0, imageViewArr.length);
+                    ImageView profileImage = (ImageView)findViewById(R.id.comment_user_profile_image);
+                    profileImage.setImageBitmap(image);
+                */
+
+                // TODO : Throw comment from this to list view
             }
-        });
-
-        builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String message = "취소 감사합니다.";
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-            }
-        });
-        Display display = getWindowManager(). getDefaultDisplay();
-        Point size = new Point();
-        display. getSize(size);
-        int width = size.x - 50;
-        int height = size.y - 50;
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        dialog.getWindow().setLayout(width, height);
+        }
     }
 
     class CommentAdapter extends BaseAdapter{
@@ -197,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
             view.setUserId(item.getId());
             view.setComment(item.getComment());
             view.setProfileImage(item.getProfileImage());
-            view.setRatingBar(item.getRatingBar());
+            view.setRatingBar(item.getRatingScore());
             view.setRecommendationCount(item.getRecommendationCount());
             view.setTime(item.getTime());
             return view;
