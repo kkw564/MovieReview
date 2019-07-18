@@ -9,7 +9,6 @@ import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -25,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     TextView downCount;
     int thumbState; // 0 : none 1 : up 2 : down
 
-    ImageButton thumbUp;
-    ImageButton thumbDown;
+    ImageButton ibThumbUp;
+    ImageButton ibThumbDown;
 
     RatingBar ratingBar;
     TextView ratingScore;
@@ -41,51 +40,51 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
 
-        upCount = (TextView)findViewById(R.id.up_count);
-        downCount = (TextView)findViewById(R.id.down_count);
+        upCount = (TextView)findViewById(R.id.tv_up_count);
+        downCount = (TextView)findViewById(R.id.tv_down_count);
 
-        thumbUp = (ImageButton)findViewById(R.id.btn_thumb_up);
-        thumbDown = (ImageButton)findViewById(R.id.btn_thumb_down);
+        ibThumbUp = (ImageButton)findViewById(R.id.btn_thumb_up);
+        ibThumbDown = (ImageButton)findViewById(R.id.btn_thumb_down);
 
-        commentListView = (ListView) findViewById(R.id.comment_list_view);
+        commentListView = (ListView) findViewById(R.id.lv_comment_view);
 
         CommentAdapter adapter = new CommentAdapter();
         commentListView.setAdapter(adapter);
         //adapter.addItem(new Sing);
         thumbState = 0;
 
-        thumbUp.setOnClickListener(new View.OnClickListener(){
+        ibThumbUp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 if(thumbState == 0 || thumbState == 2){
-                    thumbUp.setImageResource(R.drawable.ic_thumb_up_selected);
+                    ibThumbUp.setImageResource(R.drawable.ic_thumb_up_selected);
                     upCount.setText(Integer.parseInt(upCount.getText().toString()) + 1 + "");
                     if(thumbState == 2){
-                        thumbDown.setImageResource(R.drawable.ic_thumb_down);
+                        ibThumbDown.setImageResource(R.drawable.ic_thumb_down);
                         downCount.setText(Integer.parseInt(downCount.getText().toString()) - 1 + "");
                     }
                     thumbState = 1;
                 } else if(thumbState == 1){
-                    thumbUp.setImageResource(R.drawable.ic_thumb_up);
+                    ibThumbUp.setImageResource(R.drawable.ic_thumb_up);
                     upCount.setText(Integer.parseInt(upCount.getText().toString()) - 1 + "");
                     thumbState = 0;
                 }
             }
         });
 
-        thumbDown.setOnClickListener(new View.OnClickListener(){
+        ibThumbDown.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 if(thumbState == 0 || thumbState == 1){
-                    thumbDown.setImageResource(R.drawable.ic_thumb_down_selected);
+                    ibThumbDown.setImageResource(R.drawable.ic_thumb_down_selected);
                     downCount.setText(Integer.parseInt(downCount.getText().toString()) + 1 + "");
                     if(thumbState == 1){
-                        thumbUp.setImageResource(R.drawable.ic_thumb_up);
+                        ibThumbUp.setImageResource(R.drawable.ic_thumb_up);
                         upCount.setText(Integer.parseInt(upCount.getText().toString()) - 1 + "");
                     }
                     thumbState = 2;
                 } else if(thumbState == 2){
-                    thumbDown.setImageResource(R.drawable.ic_thumb_down);
+                    ibThumbDown.setImageResource(R.drawable.ic_thumb_down);
                     downCount.setText(Integer.parseInt(downCount.getText().toString()) - 1 + "");
                     thumbState = 0;
                 }
@@ -94,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         /*
-        thumbUp.setOnClickListener(new View.OnClickListener() {
+        ibThumbUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 upCount.setText(Integer.parseInt(upCount.getText().toString()) + 1 + "");
             }
         });
-        thumbDown.setOnClickListener(new View.OnClickListener() {
+        ibThumbDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 downCount.setText(Integer.parseInt(downCount.getText().toString()) + 1 + "");
@@ -108,8 +107,8 @@ public class MainActivity extends AppCompatActivity {
         });
         */
 
-        ratingBar = (RatingBar)findViewById(R.id.rating_bar);
-        ratingScore = (TextView)findViewById(R.id.rating_score_text_view);
+        ratingBar = (RatingBar)findViewById(R.id.rb_rating_bar);
+        ratingScore = (TextView)findViewById(R.id.tv_rating_score_text_view);
         /**
          * Make a float value for rating default value in dimen.xml
          */
@@ -128,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        commentWrite = (Button)findViewById(R.id.comment_write_button);
+        commentWrite = (Button)findViewById(R.id.bt_write_comment);
 
         commentWrite.setOnClickListener(new View.OnClickListener(){
             @Override
