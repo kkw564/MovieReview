@@ -51,4 +51,8 @@
     <string name="please_write_under_100_words">100자 이내로 작성해주세요.</string>
     <string name="save">저 장</string>
     <string name="cancel">취 소</string>
+
+    <!-- full_screen_comment_list.xml -->
+    <string name="title_comment_list">한줄평 목록</string>
+    <string name="participant_number">(1,142명 참여)</string>
 </resources>

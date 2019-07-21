@@ -1,10 +1,9 @@
 package com.example.moviereview;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,111 +11,41 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class FullScreenCommentView extends AppCompatActivity {
     final static int WRITE_COMMENT_REQUEST = 100;
 
     final static String[] idList = {"kkw***","cro***","abs***","hellowo***","na***"};
     Random rd = new Random();
 
-    TextView upCount;
-    TextView downCount;
-    int thumbState; // 0 : none 1 : up 2 : down
-
-    ImageButton ibThumbUp;
-    ImageButton ibThumbDown;
-
-    RatingBar ratingBar;
-    TextView ratingScore;
-
+    ImageButton arrowBackButton;
     ListView commentListView;
-
     Button commentWrite;
     CommentAdapter adapter;
 
-    Button commentSeeAll;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.full_screen_comnent_list);
 
         getSupportActionBar().hide();
 
-        upCount = (TextView)findViewById(R.id.tv_up_count);
-        downCount = (TextView)findViewById(R.id.tv_down_count);
-
-        ibThumbUp = (ImageButton)findViewById(R.id.btn_thumb_up);
-        ibThumbDown = (ImageButton)findViewById(R.id.btn_thumb_down);
-
+        arrowBackButton = (ImageButton)findViewById(R.id.ib_arrow_back);
+        arrowBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO :: send data to main for recommendation or something
+                finish();
+            }
+        });
         commentListView = (ListView) findViewById(R.id.lv_comment_view);
 
         adapter = new CommentAdapter();
         commentListView.setAdapter(adapter);
-        thumbState = 0;
-
-        ibThumbUp.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if(thumbState == 0 || thumbState == 2){
-                    ibThumbUp.setImageResource(R.drawable.ic_thumb_up_selected);
-                    upCount.setText(Integer.parseInt(upCount.getText().toString()) + 1 + "");
-                    if(thumbState == 2){
-                        ibThumbDown.setImageResource(R.drawable.ic_thumb_down);
-                        downCount.setText(Integer.parseInt(downCount.getText().toString()) - 1 + "");
-                    }
-                    thumbState = 1;
-                } else if(thumbState == 1){
-                    ibThumbUp.setImageResource(R.drawable.ic_thumb_up);
-                    upCount.setText(Integer.parseInt(upCount.getText().toString()) - 1 + "");
-                    thumbState = 0;
-                }
-            }
-        });
-
-        ibThumbDown.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if(thumbState == 0 || thumbState == 1){
-                    ibThumbDown.setImageResource(R.drawable.ic_thumb_down_selected);
-                    downCount.setText(Integer.parseInt(downCount.getText().toString()) + 1 + "");
-                    if(thumbState == 1){
-                        ibThumbUp.setImageResource(R.drawable.ic_thumb_up);
-                        upCount.setText(Integer.parseInt(upCount.getText().toString()) - 1 + "");
-                    }
-                    thumbState = 2;
-                } else if(thumbState == 2){
-                    ibThumbDown.setImageResource(R.drawable.ic_thumb_down);
-                    downCount.setText(Integer.parseInt(downCount.getText().toString()) - 1 + "");
-                    thumbState = 0;
-                }
-            }
-        });
-
-        ratingBar = (RatingBar)findViewById(R.id.rb_rating_bar);
-        ratingScore = (TextView)findViewById(R.id.tv_rating_score_text_view);
-        /**
-         * Make a float value for rating default value in dimen.xml
-         */
-        TypedValue typedValue = new TypedValue();
-        getResources().getValue(R.dimen.rating_default_value, typedValue, true);
-        float ratingDefaultValue = typedValue.getFloat();
-        ratingBar.setRating(ratingDefaultValue);
-        ratingScore.setText(String.format("%.1f", ratingDefaultValue * 2));
-
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float floatRating, boolean fromUser) {
-                String strRating = String.format("%.1f", floatRating * 2);
-                ratingScore.setText(strRating);
-            }
-        });
 
         commentWrite = (Button)findViewById(R.id.btn_write_comment);
         commentWrite.setOnClickListener(new View.OnClickListener(){
@@ -126,18 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, WRITE_COMMENT_REQUEST);
             }
         });
-
-        commentSeeAll = (Button)findViewById(R.id.btn_comment_see_all);
-        commentSeeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), FullScreenCommentView.class);
-                // TODO :: put listview data and must get listview data for recommendation count refresh
-                startActivity(intent);
-            }
-        });
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -169,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
     class CommentAdapter extends BaseAdapter {
         ArrayList<CommentItem> items = new ArrayList<>();
 

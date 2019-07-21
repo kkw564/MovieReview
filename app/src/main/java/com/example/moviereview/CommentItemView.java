@@ -31,21 +31,22 @@ public class CommentItemView extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.comment_item, this, true);
 
-        userId = (TextView) findViewById(R.id.comment_user_id);
-        time = (TextView) findViewById(R.id.comment_time);
-        ratingBar = (RatingBar) findViewById(R.id.comment_rating_bar);
-        comment = (TextView) findViewById(R.id.comment);
-        recommendationCount = (TextView) findViewById(R.id.comment_recommendation_count);
+        userId = (TextView) findViewById(R.id.tv_comment_user_id);
+        time = (TextView) findViewById(R.id.tv_comment_time);
+        ratingBar = (RatingBar) findViewById(R.id.rb_comment_rating_bar);
+        comment = (TextView) findViewById(R.id.tv_comment);
+        recommendationCount = (TextView) findViewById(R.id.tv_comment_recommendation_count);
     }
 
     public void setUserId(String userId){
         this.userId.setText(userId);
     }
-    public void setTime(Long time){
-        this.time.setText(Long.toString(time));
+    public void setTime(String time){
+        this.time.setText(time);
     }
     public void setRatingBar(Float ratingScore){
         this.ratingBar.setRating(ratingScore);
+        this.ratingBar.setIsIndicator(true);
     }
     public void setComment(String comment){
         this.comment.setText(comment);

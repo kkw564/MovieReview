@@ -1,17 +1,18 @@
 package com.example.moviereview;
 
 import android.widget.ImageView;
-import android.widget.RatingBar;
+
+import java.text.SimpleDateFormat;
 
 public class CommentItem {
     String id;
-    Long time;
+    String time;
     String comment;
     int recommendationCount;
     Float ratingScore;
     ImageView profileImage;
 
-    public CommentItem(String id, Long time, String comment, int recommendCount, Float ratingScore, ImageView profileImage) {
+    public CommentItem(String id, String time, String comment, int recommendCount, Float ratingScore, ImageView profileImage) {
         this.id = id;
         this.time = time;
         this.comment = comment;
@@ -28,11 +29,11 @@ public class CommentItem {
         this.id = id;
     }
 
-    public Long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

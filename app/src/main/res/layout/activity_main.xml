@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#ffffff">
 
@@ -9,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
         <!-- ScrollView wrapper -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -385,13 +385,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginRight="15dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
@@ -419,7 +420,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
-                            android:background="#ffffff"
+                            android:background="#00000000"
                             android:text="@string/comment_write"
                             android:textColor="#E44418"
                             android:textSize="25dp"
@@ -427,19 +428,22 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
+                <android.support.v4.widget.NestedScrollView
+                    android:id="@+id/nsv_comment_nested_scroll_view"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:orientation="vertical">
+                    android:fillViewport="true">
 
                     <ListView
                         android:id="@+id/lv_comment_view"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"></ListView>
-                </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="true"></ListView>
+                </android.support.v4.widget.NestedScrollView>
 
                 <Button
                     style="?android:attr/borderlessButtonStyle"
+                    android:id="@+id/btn_comment_see_all"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
