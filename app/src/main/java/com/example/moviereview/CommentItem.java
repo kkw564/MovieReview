@@ -21,6 +21,8 @@ public class CommentItem {
         this.profileImage = profileImage;
     }
 
+    public CommentItem() {}
+
     public String getId() {
         return id;
     }

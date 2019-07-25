@@ -1,9 +1,11 @@
 package com.example.moviereview;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +24,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     final static int WRITE_COMMENT_REQUEST = 100;
+    final static int FULL_SCREEN_COMMENT_REQUEST = 101;
 
     final static String[] idList = {"kkw***","cro***","abs***","hellowo***","na***"};
     Random rd = new Random();
@@ -131,9 +135,21 @@ public class MainActivity extends AppCompatActivity {
         commentSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CommentDataList list = new CommentDataList();
+                for(int i = 0 ; i < adapter.size(); i++){
+                    CommentData data = new CommentData();
+                    data.id = adapter.getItem(i).id;
+                    data.time = adapter.getItem(i).time;
+                    data.comment = adapter.getItem(i).comment;
+                    data.recommendationCount = adapter.getItem(i).recommendationCount;
+                    data.ratingScore = adapter.getItem(i).ratingScore;
+                    //data.profileImage = adapter.getItem(i).profileImage;
+                    list.addItem(data);
+                }
+
                 Intent intent = new Intent(getApplicationContext(), FullScreenCommentView.class);
-                // TODO :: put listview data and must get listview data for recommendation count refresh
-                startActivity(intent);
+                intent.putParcelableArrayListExtra("commentListData", list);
+                startActivityForResult(intent, FULL_SCREEN_COMMENT_REQUEST);
             }
         });
     }
@@ -142,36 +158,44 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == WRITE_COMMENT_REQUEST){
-            if(resultCode == RESULT_OK){
-                // TODO : set real time
+        switch(requestCode){
+            case WRITE_COMMENT_REQUEST:
+                if(resultCode == RESULT_OK){
 
-                String id = idList[rd.nextInt(5)];
-                SimpleDateFormat timeFormatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
-                String time = timeFormatter.format(System.currentTimeMillis());
-                String comment = data.getStringExtra("comment");
-                Float ratingScore = data.getFloatExtra("rating_score",0);
-                int recommendationCount = 0;
-                ImageView profileImage = new ImageView(this);
-                profileImage.setImageResource(R.drawable.user1);
-                adapter.addItem(new CommentItem(id, time, comment, recommendationCount, ratingScore, profileImage));
-                adapter.notifyDataSetChanged();
-                /*
-                String id = data.getStringExtra("id");
-                String time = data.getStringExtra("time");
-                byte[] imageViewArr = data.getByteArrayExtra("profileImage");
-                    Bitmap image = BitmapFactory.decodeByteArray(imageViewArr, 0, imageViewArr.length);
-                    ImageView profileImage = (ImageView)findViewById(R.id.comment_user_profile_image);
-                    profileImage.setImageBitmap(image);
-                */
+                    // TODO : set real time
+                    String id = idList[rd.nextInt(5)];
+                    SimpleDateFormat timeFormatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+                    String time = timeFormatter.format(System.currentTimeMillis());
+                    String comment = data.getStringExtra("comment");
+                    Float ratingScore = data.getFloatExtra("rating_score",0);
+                    int recommendationCount = 0;
+                    ImageView profileImage = new ImageView(this);
+                    profileImage.setImageResource(R.drawable.user1);
+                    adapter.addItem(new CommentItem(id, time, comment, recommendationCount, ratingScore, profileImage));
+                    adapter.notifyDataSetChanged();
+                    /*
+                    String id = data.getStringExtra("id");
+                    String time = data.getStringExtra("time");
+                    byte[] imageViewArr = data.getByteArrayExtra("profileImage");
+                        Bitmap image = BitmapFactory.decodeByteArray(imageViewArr, 0, imageViewArr.length);
+                        ImageView profileImage = (ImageView)findViewById(R.id.comment_user_profile_image);
+                        profileImage.setImageBitmap(image);
+                    */
 
-                // TODO : Throw comment from this to list view
-            }
+                    // TODO : Throw comment from this to list view
+                }
+                break;
+            case FULL_SCREEN_COMMENT_REQUEST:
+
+                break;
         }
+
     }
 
     class CommentAdapter extends BaseAdapter {
-        ArrayList<CommentItem> items = new ArrayList<>();
+        private ArrayList<CommentItem> items = new ArrayList<>();
+
+        public int size(){ return items.size(); }
 
         public void addItem(CommentItem item){
             items.add(item);
@@ -183,7 +207,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @Override
-        public Object getItem(int position) {
+        public CommentItem getItem(int position) {
             return items.get(position);
         }
 

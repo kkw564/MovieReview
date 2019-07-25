@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,6 +57,34 @@ public class FullScreenCommentView extends AppCompatActivity {
                 startActivityForResult(intent, WRITE_COMMENT_REQUEST);
             }
         });
+
+        Intent intent = getIntent();
+        processIntent(intent);
+    }
+    private void processIntent(Intent intent){
+        ArrayList<CommentData> items = intent.getParcelableExtra("commentListData");
+
+        for(int i = 0; i < items.size(); i ++) {
+            CommentItem item = new CommentItem();
+            item.setId(items.get(i).id);
+            item.setTime(items.get(i).time);
+            item.setComment(items.get(i).comment);
+            item.setRecommendationCount(items.get(i).recommendationCount);
+            item.setRatingScore(items.get(i).ratingScore);
+            //item.setProfileImage(items.get(i).profileImage);
+            adapter.addItem(item);
+        }
+//
+//        for(int i = 0; i < items.size(); i++){
+//            item.id = items.get(i).id;
+//            item.time = items.get(i).time;
+//            item.comment = items.get(i).comment;
+//            item.recommendationCount = items.get(i).recommendationCount;
+//            item.ratingScore = items.get(i).ratingScore;
+//            Toast.makeText(getApplicationContext(), item.id + " 22 " + item.time + " 33 " + " 44 " + item.comment + " 55 ",Toast.LENGTH_LONG).show();
+//            adapter.addItem(item);
+//        }
+        adapter.notifyDataSetChanged();
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
