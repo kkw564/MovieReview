@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,8 +41,7 @@ public class FullScreenCommentView extends AppCompatActivity {
         arrowBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO :: send data to main for recommendation or something
-                finish();
+                setIntentForResult();
             }
         });
         commentListView = (ListView) findViewById(R.id.lv_comment_view);
@@ -85,6 +85,18 @@ public class FullScreenCommentView extends AppCompatActivity {
 //            adapter.addItem(item);
 //        }
         adapter.notifyDataSetChanged();
+    }
+    private void setIntentForResult(){
+
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(event.getAction() == KeyEvent.ACTION_DOWN ){
+            if( keyCode == KeyEvent.KEYCODE_BACK ){
+                setIntentForResult();
+            }
+        }
+        return super.onKeyDown( keyCode, event );
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
