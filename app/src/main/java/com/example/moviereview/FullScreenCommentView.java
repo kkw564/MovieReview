@@ -74,20 +74,25 @@ public class FullScreenCommentView extends AppCompatActivity {
             //item.setProfileImage(items.get(i).profileImage);
             adapter.addItem(item);
         }
-//
-//        for(int i = 0; i < items.size(); i++){
-//            item.id = items.get(i).id;
-//            item.time = items.get(i).time;
-//            item.comment = items.get(i).comment;
-//            item.recommendationCount = items.get(i).recommendationCount;
-//            item.ratingScore = items.get(i).ratingScore;
-//            Toast.makeText(getApplicationContext(), item.id + " 22 " + item.time + " 33 " + " 44 " + item.comment + " 55 ",Toast.LENGTH_LONG).show();
-//            adapter.addItem(item);
-//        }
         adapter.notifyDataSetChanged();
     }
     private void setIntentForResult(){
+        CommentDataList list = new CommentDataList();
+        for(int i = 0 ; i < adapter.size(); i++){
+            CommentData data = new CommentData();
+            data.id = adapter.getItem(i).id;
+            data.time = adapter.getItem(i).time;
+            data.comment = adapter.getItem(i).comment;
+            data.recommendationCount = adapter.getItem(i).recommendationCount;
+            data.ratingScore = adapter.getItem(i).ratingScore;
+            //data.profileImage = adapter.getItem(i).profileImage;
+            list.addItem(data);
+        }
 
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("returnCommentListData", list);
+        setResult(RESULT_OK, intent);
+        finish();
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -129,20 +134,25 @@ public class FullScreenCommentView extends AppCompatActivity {
             }
         }
     }
+
     class CommentAdapter extends BaseAdapter {
-        ArrayList<CommentItem> items = new ArrayList<>();
+        private ArrayList<CommentItem> items = new ArrayList<>();
+
+        public int size(){ return items.size(); }
 
         public void addItem(CommentItem item){
             items.add(item);
         }
 
-        @Override
-        public int getCount() {
-            return items.size();
+        public void clear() {
+            items.clear();
         }
 
         @Override
-        public Object getItem(int position) {
+        public int getCount() { return items.size(); }
+
+        @Override
+        public CommentItem getItem(int position) {
             return items.get(position);
         }
 

@@ -161,7 +161,6 @@ public class MainActivity extends AppCompatActivity {
         switch(requestCode){
             case WRITE_COMMENT_REQUEST:
                 if(resultCode == RESULT_OK){
-
                     // TODO : set real time
                     String id = idList[rd.nextInt(5)];
                     SimpleDateFormat timeFormatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
@@ -186,7 +185,22 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
             case FULL_SCREEN_COMMENT_REQUEST:
+                if(resultCode == RESULT_OK){
+                    ArrayList<CommentData> items = data.getParcelableExtra("returnCommentListData");
+                    adapter.clear();
 
+                    for(int i = 0; i < items.size(); i ++) {
+                        CommentItem item = new CommentItem();
+                        item.setId(items.get(i).id);
+                        item.setTime(items.get(i).time);
+                        item.setComment(items.get(i).comment);
+                        item.setRecommendationCount(items.get(i).recommendationCount);
+                        item.setRatingScore(items.get(i).ratingScore);
+                        //item.setProfileImage(items.get(i).profileImage);
+                        adapter.addItem(item);
+                    }
+                    adapter.notifyDataSetChanged();
+                }
                 break;
         }
 
@@ -199,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
 
         public void addItem(CommentItem item){
             items.add(item);
+        }
+
+        public void clear() {
+            items.clear();
         }
 
         @Override
