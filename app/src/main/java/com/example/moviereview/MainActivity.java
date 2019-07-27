@@ -21,6 +21,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     final static int WRITE_COMMENT_REQUEST = 100;
@@ -154,6 +155,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private String setElapsedTime(Long commentTime){
+        Long currentTime = System.currentTimeMillis();
+        long diffTime = (currentTime - commentTime) / 1000;
+        if(diffTime == 0) {
+            return "방금";
+        } else if(diffTime < TIME_TABLE.SEC) {
+            return diffTime + "초 전";
+        } else if((diffTime /= TIME_TABLE.SEC) < TIME_TABLE.MIN){
+            return diffTime + "분 전";
+        } else if((diffTime /= TIME_TABLE.MIN) < TIME_TABLE.HOUR){
+            return diffTime + "시간 전";
+        } else if((diffTime /= TIME_TABLE.HOUR) < TIME_TABLE.DAY){
+            return diffTime + "일 전";
+        } else if((diffTime /= TIME_TABLE.DAY) < TIME_TABLE.MONTH){
+            return diffTime + "달 전";
+        } else {
+            return diffTime + "년 전";
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -161,27 +182,33 @@ public class MainActivity extends AppCompatActivity {
         switch(requestCode){
             case WRITE_COMMENT_REQUEST:
                 if(resultCode == RESULT_OK){
-                    // TODO : set real time
                     String id = idList[rd.nextInt(5)];
-                    SimpleDateFormat timeFormatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
-                    String time = timeFormatter.format(System.currentTimeMillis());
+                    Long time = System.currentTimeMillis();
                     String comment = data.getStringExtra("comment");
                     Float ratingScore = data.getFloatExtra("rating_score",0);
                     int recommendationCount = 0;
                     ImageView profileImage = new ImageView(this);
-                    profileImage.setImageResource(R.drawable.user1);
+                    Log.v("KKW :: ", rd.nextInt(3)+"");
+                    switch(rd.nextInt(3)){
+                        case 0:
+                            profileImage.setImageResource(R.drawable.user1);
+                            break;
+                        case 1:
+                            profileImage.setImageResource(R.drawable.user2);
+                            break;
+                        case 2:
+                            profileImage.setImageResource(R.drawable.user3);
+                            break;
+                    }
+
                     adapter.addItem(new CommentItem(id, time, comment, recommendationCount, ratingScore, profileImage));
                     adapter.notifyDataSetChanged();
                     /*
-                    String id = data.getStringExtra("id");
-                    String time = data.getStringExtra("time");
                     byte[] imageViewArr = data.getByteArrayExtra("profileImage");
                         Bitmap image = BitmapFactory.decodeByteArray(imageViewArr, 0, imageViewArr.length);
                         ImageView profileImage = (ImageView)findViewById(R.id.comment_user_profile_image);
                         profileImage.setImageBitmap(image);
                     */
-
-                    // TODO : Throw comment from this to list view
                 }
                 break;
             case FULL_SCREEN_COMMENT_REQUEST:
@@ -243,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
             view.setProfileImage(item.getProfileImage());
             view.setRatingBar(item.getRatingScore());
             view.setRecommendationCount(item.getRecommendationCount());
-            view.setTime(item.getTime());
+            view.setTime(setElapsedTime(item.getTime()));
             view.findViewById(R.id.tv_comment_recommend).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -253,5 +280,12 @@ public class MainActivity extends AppCompatActivity {
             });
             return view;
         }
+    }
+    private static final class TIME_TABLE {
+        public static final int SEC = 60;
+        public static final int MIN = 60;
+        public static final int HOUR = 24;
+        public static final int DAY = 30;
+        public static final int MONTH = 12;
     }
 }

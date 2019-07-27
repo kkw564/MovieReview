@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +12,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -109,11 +106,8 @@ public class FullScreenCommentView extends AppCompatActivity {
 
         if(requestCode == WRITE_COMMENT_REQUEST){
             if(resultCode == RESULT_OK){
-                // TODO : set real time
-
                 String id = idList[rd.nextInt(5)];
-                SimpleDateFormat timeFormatter = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
-                String time = timeFormatter.format(System.currentTimeMillis());
+                Long time = System.currentTimeMillis();
                 String comment = data.getStringExtra("comment");
                 Float ratingScore = data.getFloatExtra("rating_score",0);
                 int recommendationCount = 0;
@@ -129,10 +123,36 @@ public class FullScreenCommentView extends AppCompatActivity {
                     ImageView profileImage = (ImageView)findViewById(R.id.comment_user_profile_image);
                     profileImage.setImageBitmap(image);
                 */
-
-                // TODO : Throw comment from this to list view
             }
         }
+    }
+
+    private String setElapsedTime(Long commentTime){
+        Long currentTime = System.currentTimeMillis();
+        long diffTime = (currentTime - commentTime) / 1000;
+        if(diffTime == 0) {
+            return "방금";
+        } else if(diffTime < TIME_TABLE.SEC) {
+            return diffTime + "초 전";
+        } else if((diffTime /= TIME_TABLE.SEC) < TIME_TABLE.MIN){
+            return diffTime + "분 전";
+        } else if((diffTime /= TIME_TABLE.MIN) < TIME_TABLE.HOUR){
+            return diffTime + "시간 전";
+        } else if((diffTime /= TIME_TABLE.HOUR) < TIME_TABLE.DAY){
+            return diffTime + "일 전";
+        } else if((diffTime /= TIME_TABLE.DAY) < TIME_TABLE.MONTH){
+            return diffTime + "달 전";
+        } else {
+            return diffTime + "년 전";
+        }
+    }
+
+    private static final class TIME_TABLE {
+        public static final int SEC = 60;
+        public static final int MIN = 60;
+        public static final int HOUR = 24;
+        public static final int DAY = 30;
+        public static final int MONTH = 12;
     }
 
     class CommentAdapter extends BaseAdapter {
@@ -170,7 +190,7 @@ public class FullScreenCommentView extends AppCompatActivity {
             view.setProfileImage(item.getProfileImage());
             view.setRatingBar(item.getRatingScore());
             view.setRecommendationCount(item.getRecommendationCount());
-            view.setTime(item.getTime());
+            view.setTime(setElapsedTime(item.getTime()));
             view.findViewById(R.id.tv_comment_recommend).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

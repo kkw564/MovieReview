@@ -6,13 +6,13 @@ import android.widget.ImageView;
 
 public class CommentData implements Parcelable {
     String id;
-    String time;
+    long time;
     String comment;
     int recommendationCount;
     Float ratingScore;
     ImageView profileImage;
 
-    public CommentData(String id, String time, String comment, int recommendationCount, Float ratingScore) {
+    public CommentData(String id, Long time, String comment, int recommendationCount, Float ratingScore) {
         this.id = id;
         this.time = time;
         this.comment = comment;
@@ -23,7 +23,7 @@ public class CommentData implements Parcelable {
 
     public CommentData(Parcel src) {
         id = src.readString();
-        time = src.readString();
+        time = src.readLong();
         comment = src.readString();
         recommendationCount = src.readInt();
         ratingScore = src.readFloat();
@@ -52,7 +52,7 @@ public class CommentData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
-        dest.writeString(time);
+        dest.writeLong(time);
         dest.writeString(comment);
         dest.writeInt(recommendationCount);
         dest.writeFloat(ratingScore);

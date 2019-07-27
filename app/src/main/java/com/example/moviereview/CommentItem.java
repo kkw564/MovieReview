@@ -6,13 +6,13 @@ import java.text.SimpleDateFormat;
 
 public class CommentItem {
     String id;
-    String time;
+    Long time;
     String comment;
     int recommendationCount;
     Float ratingScore;
     ImageView profileImage;
 
-    public CommentItem(String id, String time, String comment, int recommendCount, Float ratingScore, ImageView profileImage) {
+    public CommentItem(String id, Long time, String comment, int recommendCount, Float ratingScore, ImageView profileImage) {
         this.id = id;
         this.time = time;
         this.comment = comment;
@@ -31,11 +31,11 @@ public class CommentItem {
         this.id = id;
     }
 
-    public String getTime() {
+    public Long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Long time) {
         this.time = time;
     }
 
