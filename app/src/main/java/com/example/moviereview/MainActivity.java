@@ -188,8 +188,7 @@ public class MainActivity extends AppCompatActivity {
                     Float ratingScore = data.getFloatExtra("rating_score",0);
                     int recommendationCount = 0;
                     ImageView profileImage = new ImageView(this);
-                    Log.v("KKW :: ", rd.nextInt(3)+"");
-                    switch(rd.nextInt(3)){
+                    /*switch(rd.nextInt(3)){
                         case 0:
                             profileImage.setImageResource(R.drawable.user1);
                             break;
@@ -199,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         case 2:
                             profileImage.setImageResource(R.drawable.user3);
                             break;
-                    }
+                    }*/
 
                     adapter.addItem(new CommentItem(id, time, comment, recommendationCount, ratingScore, profileImage));
                     adapter.notifyDataSetChanged();
@@ -230,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
         }
-
     }
 
     class CommentAdapter extends BaseAdapter {
