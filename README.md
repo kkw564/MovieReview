@@ -1,2 +1,2 @@
-# MoiveReview
+# MovieReview
 Movie review android App
