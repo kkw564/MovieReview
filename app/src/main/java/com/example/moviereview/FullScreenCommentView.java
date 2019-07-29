@@ -34,23 +34,24 @@ public class FullScreenCommentView extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
-        arrowBackButton = (ImageButton)findViewById(R.id.ib_arrow_back);
+        arrowBackButton = findViewById(R.id.ib_arrow_back);
         arrowBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setIntentForResult();
             }
         });
-        commentListView = (ListView) findViewById(R.id.lv_comment_view);
+        commentListView = findViewById(R.id.lv_comment_view);
 
         adapter = new CommentAdapter();
         commentListView.setAdapter(adapter);
 
-        commentWrite = (Button)findViewById(R.id.btn_write_comment);
+        commentWrite = findViewById(R.id.btn_write_comment);
         commentWrite.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), WriteCommentView.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivityForResult(intent, WRITE_COMMENT_REQUEST);
             }
         });
@@ -60,7 +61,7 @@ public class FullScreenCommentView extends AppCompatActivity {
     }
     private void processIntent(Intent intent){
         ArrayList<CommentData> items = intent.getParcelableExtra("commentListData");
-
+        adapter.clear();
         for(int i = 0; i < items.size(); i ++) {
             CommentItem item = new CommentItem();
             item.setId(items.get(i).id);

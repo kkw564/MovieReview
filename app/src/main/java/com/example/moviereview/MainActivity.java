@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     final static int WRITE_COMMENT_REQUEST = 100;
     final static int FULL_SCREEN_COMMENT_REQUEST = 101;
 
+    boolean isFullScreenCommentRequest = false;
+
     final static String[] idList = {"kkw***","cro***","abs***","hellowo***","na***"};
     Random rd = new Random();
 
@@ -59,15 +61,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SharedPreferences sf = getSharedPreferences("sf", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sf.edit();
+        editor.remove("saveCommentList");
+        editor.commit();
+
         getSupportActionBar().hide();
 
-        upCount = (TextView)findViewById(R.id.tv_up_count);
-        downCount = (TextView)findViewById(R.id.tv_down_count);
+        upCount = findViewById(R.id.tv_up_count);
+        downCount = findViewById(R.id.tv_down_count);
 
-        ibThumbUp = (ImageButton)findViewById(R.id.btn_thumb_up);
-        ibThumbDown = (ImageButton)findViewById(R.id.btn_thumb_down);
+        ibThumbUp = findViewById(R.id.btn_thumb_up);
+        ibThumbDown = findViewById(R.id.btn_thumb_down);
 
-        commentListView = (ListView) findViewById(R.id.lv_comment_view);
+        commentListView = findViewById(R.id.lv_comment_view);
 
         adapter = new CommentAdapter();
         commentListView.setAdapter(adapter);
@@ -111,8 +118,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ratingBar = (RatingBar)findViewById(R.id.rb_rating_bar);
-        ratingScore = (TextView)findViewById(R.id.tv_rating_score_text_view);
+        ratingBar = findViewById(R.id.rb_rating_bar);
+        ratingScore = findViewById(R.id.tv_rating_score_text_view);
         /**
          * Make a float value for rating default value in dimen.xml
          */
@@ -130,16 +137,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        commentWrite = (Button)findViewById(R.id.btn_write_comment);
+        commentWrite = findViewById(R.id.btn_write_comment);
         commentWrite.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), WriteCommentView.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivityForResult(intent, WRITE_COMMENT_REQUEST);
             }
         });
 
-        commentSeeAll = (Button)findViewById(R.id.btn_comment_see_all);
+        commentSeeAll = findViewById(R.id.btn_comment_see_all);
         commentSeeAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,8 +171,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onPause() {
+        super.onPause();
         SharedPreferences sf = getSharedPreferences("sf", MODE_PRIVATE);
         SharedPreferences.Editor editor = sf.edit();
         editor.remove("saveCommentList");
@@ -193,14 +201,18 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        Log.v("여기!! ", jsonArray.toString());
         editor.putString("saveCommentList", jsonArray.toString());
         editor.commit();
+        adapter.clear();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
+        if(isFullScreenCommentRequest){
+            isFullScreenCommentRequest = false;
+            return;
+        }
         SharedPreferences sf = getSharedPreferences("sf",MODE_PRIVATE);
         String json = sf.getString("saveCommentList", null);
         if(json == null){
@@ -208,7 +220,6 @@ public class MainActivity extends AppCompatActivity {
         }
         try {
             JSONArray jsonArray = new JSONArray(json);
-            Log.v("RESULTzzz :: ", jsonArray.toString()+"");
             int size = (int) jsonArray.getJSONObject(0).get("size");
             for(int i = 1; i <= size; i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -219,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
                 int recommendationCount = (int) jsonObject.get("recommendationCount");
                 Long time = (Long) jsonObject.get("time");
 
-                ImageView profileImage = new ImageView(this); // tmp
+                ImageView profileImage = new ImageView(this); // TODO :: Make profileImage
                 adapter.addItem(new CommentItem(id, time, comment, recommendationCount, ratingScore, profileImage));
             }
             adapter.notifyDataSetChanged();
@@ -285,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case FULL_SCREEN_COMMENT_REQUEST:
                 if(resultCode == RESULT_OK){
+                    isFullScreenCommentRequest = true;
                     ArrayList<CommentData> items = data.getParcelableExtra("returnCommentListData");
                     adapter.clear();
 
