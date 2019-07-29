@@ -1,6 +1,7 @@
 package com.example.moviereview;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -18,8 +19,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -153,6 +160,72 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, FULL_SCREEN_COMMENT_REQUEST);
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences sf = getSharedPreferences("sf", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sf.edit();
+        editor.remove("saveCommentList");
+        editor.commit();
+
+        JSONObject jsonObject = null;
+        JSONArray jsonArray = new JSONArray();
+        try {
+            jsonObject = new JSONObject();
+            jsonObject.put("size",  adapter.size());
+            jsonArray.put(jsonObject);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        for(int i = 0; i < adapter.size(); i++){
+            try {
+                jsonObject = new JSONObject();
+                jsonObject.put("id", adapter.getItem(i).getId());
+                jsonObject.put("comment", adapter.getItem(i).getComment());
+                //jsonArray.put("profileImage", adapter.getItem(i).getProfileImage());
+                jsonObject.put("ratingScore", adapter.getItem(i).getRatingScore());
+                jsonObject.put("recommendationCount", adapter.getItem(i).getRecommendationCount());
+                jsonObject.put("time", adapter.getItem(i).getTime());
+                jsonArray.put(jsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.v("여기!! ", jsonArray.toString());
+        editor.putString("saveCommentList", jsonArray.toString());
+        editor.commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences sf = getSharedPreferences("sf",MODE_PRIVATE);
+        String json = sf.getString("saveCommentList", null);
+        if(json == null){
+            return;
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            Log.v("RESULTzzz :: ", jsonArray.toString()+"");
+            int size = (int) jsonArray.getJSONObject(0).get("size");
+            for(int i = 1; i <= size; i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String id = (String) jsonObject.get("id");
+                String comment = (String) jsonObject.get("comment");
+                String ratingScoreString = jsonObject.get("ratingScore").toString();
+                Float ratingScore = Float.parseFloat(ratingScoreString);
+                int recommendationCount = (int) jsonObject.get("recommendationCount");
+                Long time = (Long) jsonObject.get("time");
+
+                ImageView profileImage = new ImageView(this); // tmp
+                adapter.addItem(new CommentItem(id, time, comment, recommendationCount, ratingScore, profileImage));
+            }
+            adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private String setElapsedTime(Long commentTime){
