@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -28,8 +31,8 @@ public class WriteCommentView extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.write_comment_view);
+        initToolbar();
 
         editText = (EditText)findViewById(R.id.et_write_comment);
         ratingBar = (RatingBar)findViewById(R.id.rb_write_comment_rating_bar);
@@ -61,6 +64,31 @@ public class WriteCommentView extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void initToolbar(){
+        Toolbar toolbar = findViewById(R.id.tb_custom_toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setTitle("영화 본론");
+
+        // Make a back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_white_24dp);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                // TODO : show navigation
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void showMessage(int request){

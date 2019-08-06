@@ -10,6 +10,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".FullScreenCommentView"/>
         <activity android:name=".WriteCommentView"/>
+        <activity android:name=".MoviePage"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,5 +1,5 @@
 <resources>
-    <!-- activity_main.xml -->
+    <!-- activity_movie_page.xmlge.xml -->
     <string name="app_name">MovieReview</string>
     <string name="cinema_title">씨네마 천국</string>
     <string name="limit_15">15</string>

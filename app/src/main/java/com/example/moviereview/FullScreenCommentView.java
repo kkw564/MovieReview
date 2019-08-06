@@ -3,8 +3,11 @@ package com.example.moviereview;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -31,16 +34,8 @@ public class FullScreenCommentView extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.full_screen_comnent_list);
+        initToolbar();
 
-        getSupportActionBar().hide();
-
-        arrowBackButton = findViewById(R.id.ib_arrow_back);
-        arrowBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setIntentForResult();
-            }
-        });
         commentListView = findViewById(R.id.lv_comment_view);
 
         adapter = new CommentAdapter();
@@ -59,6 +54,31 @@ public class FullScreenCommentView extends AppCompatActivity {
         Intent intent = getIntent();
         processIntent(intent);
     }
+
+    private void initToolbar(){
+        Toolbar toolbar = findViewById(R.id.tb_custom_toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setTitle("한줄평 목록");
+
+        // Make a back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_white_24dp);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{
+                setIntentForResult();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void processIntent(Intent intent){
         ArrayList<CommentData> items = intent.getParcelableExtra("commentListData");
         adapter.clear();
