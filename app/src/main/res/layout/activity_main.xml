@@ -15,17 +15,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/vp_movie_slider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
-
-        <Button
-            android:id="@+id/btn_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="상세보기" />
+            android:layout_height="0dp"
+            android:layout_weight="1"></android.support.v4.view.ViewPager>
     </LinearLayout>
 </LinearLayout>
