@@ -37,16 +37,6 @@ public class MainActivity extends AppCompatActivity {
         pager.setAdapter(adapter);
 
         initToolbar();
-
-        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MoviePage.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(intent);
-            }
-        });
-
     }
 
     class MoviePagerAdapter extends FragmentStatePagerAdapter{
