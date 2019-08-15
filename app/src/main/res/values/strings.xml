@@ -63,4 +63,7 @@
     <string name="d_day_1">D-1</string>
     <string name="d_day_10">D-10</string>
     <string name="d_day_100">D-100</string>
+    <string name="movie_title_1">1. 군 도</string>
+    <string name="movie_title_2">2. 공 조</string>
+    <string name="movie_title_3">3. 더 킹</string>
 </resources>

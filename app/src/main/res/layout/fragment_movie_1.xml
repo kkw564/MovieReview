@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
-        android:text="@string/movie_title"
+        android:text="@string/movie_title_1"
         android:textSize="25dp"
         android:layout_marginTop="20dp"
         android:textColor="#F2F3F7"/>

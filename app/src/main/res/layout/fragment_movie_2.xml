@@ -4,19 +4,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center_horizontal"
-    android:background="@drawable/gradient_background">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2번째 프레그먼트"/>
+    android:gravity="center_horizontal">
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_movie"/>
+        android:src="@drawable/image2"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/movie_title_2"
+        android:textSize="25dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#F2F3F7"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/division_line"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"></LinearLayout>
+    <!-- Movie information -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal|center_vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation_title"
+            android:textSize="20dp"
+            android:layout_marginRight="5dp"
+            android:textColor="#F2F3F7"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reservation_percentage"
+            android:textSize="20dp"
+            android:textColor="#F2F3F7"/>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#F2F3F7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/over_age_12"
+            android:textSize="20dp"
+            android:textColor="#F2F3F7"/>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#F2F3F7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/d_day_10"
+            android:textSize="18dp"
+            android:textColor="#F2F3F7"/>
+    </LinearLayout>
+
     <Button
+        android:background="@drawable/corner_radius_50dp_orange"
         android:id="@+id/btn_test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="상세보기"/>
+        android:text="상세보기"
+        android:textSize="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_marginTop="20dp"
+        android:textColor="#F2F3F7"/>
+
 </LinearLayout>
