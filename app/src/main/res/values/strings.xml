@@ -55,4 +55,12 @@
     <!-- full_screen_comment_list.xml -->
     <string name="title_comment_list">한줄평 목록</string>
     <string name="participant_number">(1,142명 참여)</string>
+
+    <!-- Viewpager fragment -->
+    <string name="over_age_12">12세 관람가</string>
+    <string name="over_age_15">15세 관람가</string>
+    <string name="over_age_18">18세 관람가</string>
+    <string name="d_day_1">D-1</string>
+    <string name="d_day_10">D-10</string>
+    <string name="d_day_100">D-100</string>
 </resources>
