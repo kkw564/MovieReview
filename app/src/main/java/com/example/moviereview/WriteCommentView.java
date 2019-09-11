@@ -72,7 +72,7 @@ public class WriteCommentView extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setTitle("영화 본론");
+        actionBar.setTitle("리뷰 작성");
 
         // Make a back button
         actionBar.setDisplayHomeAsUpEnabled(true);

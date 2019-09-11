@@ -8,10 +8,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FullScreenCommentView"/>
-        <activity android:name=".WriteCommentView"/>
-        <activity android:name=".MoviePage"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".FullScreenCommentView" />
+        <activity android:name=".WriteCommentView" />
+        <activity android:name=".MoviePage" />
+        <activity
+                android:name=".NavigationDrawer"
+                android:label="@string/title_activity_navigation_drawer"
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

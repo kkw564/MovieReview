@@ -176,7 +176,7 @@ public class MoviePage extends AppCompatActivity {
 
         // Make a back button
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_white_24dp);
     }
 
     @Override
